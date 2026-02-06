@@ -19,7 +19,7 @@ pipeline {
                     echo 'Preparing .env file from .env.sample...'
                     sh '''
                     if [ ! -f .env ]; then
-                        cp .env.sample .env
+                        cp env.sample .env
                         echo ".env file created from sample"
                     else
                         echo ".env already exists"
