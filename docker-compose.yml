@@ -6,6 +6,7 @@ services:
     command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/app
+      - static_volume:/app/static   # ✅ ADD THIS
     deploy:
       replicas: 3
     expose:
@@ -16,7 +17,7 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - static_volume:/app/static
+      - static_volume:/app/static   # ✅ Already correct
     ports:
       - "80:80"
     depends_on:
