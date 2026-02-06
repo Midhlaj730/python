@@ -2,14 +2,30 @@ pipeline {
     agent any
 
     environment {
-        // Define any environment variables here if needed
         COMPOSE_PROJECT_NAME = "django_app"
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
+            }
+        }
+
+        stage('Prepare Environment') {
+            steps {
+                script {
+                    echo 'Preparing .env file from .env.sample...'
+                    sh '''
+                    if [ ! -f .env ]; then
+                        cp .env.sample .env
+                        echo ".env file created from sample"
+                    else
+                        echo ".env already exists"
+                    fi
+                    '''
+                }
             }
         }
 
@@ -26,9 +42,9 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    // Optionally start a test container to run tests
+                    // Enable later if needed
                     // sh 'docker-compose run --rm web python manage.py test'
-                    echo 'Skipping tests for now (implement as needed)'
+                    echo 'Skipping tests for now (implement later)'
                 }
             }
         }
@@ -37,12 +53,12 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying application...'
-                    // Stop existing containers
-                    sh 'docker-compose down'
-                    
-                    // Start new containers in detached mode
-                    sh 'docker-compose up -d'
-                    
+
+                    sh '''
+                    docker-compose down || true
+                    docker-compose up -d
+                    '''
+
                     echo 'Application deployed successfully!'
                 }
             }
