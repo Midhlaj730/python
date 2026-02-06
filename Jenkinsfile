@@ -12,12 +12,7 @@ pipeline {
                 checkout scm
             }
         }
- stages {
-        stage('Checkout') {
-            steps { sh '''cp env.sample .env'''
-                
-            }
-        }
+
         stage('Build') {
             steps {
                 script {
