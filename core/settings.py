@@ -99,16 +99,17 @@ DB_PORT     = os.getenv('DB_PORT'     , None)
 DB_NAME     = os.getenv('DB_NAME'     , None)
 
 if DB_ENGINE and DB_NAME and DB_USERNAME:
-    DATABASES = { 
-      'default': {
-        'ENGINE'  : 'django.db.backends.' + DB_ENGINE, 
-        'NAME'    : DB_NAME,
-        'USER'    : DB_USERNAME,
-        'PASSWORD': DB_PASS,
-        'HOST'    : DB_HOST,
-        'PORT'    : DB_PORT,
-        }, 
-    }
+      DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.mysql',
+             'NAME': 'django_db',
+             'USER': 'django_user',
+             'PASSWORD': 'django_pass',
+             'HOST': 'db',
+             'PORT': '3306',
+         }
+     }
+
 else:
     DATABASES = {
         'default': {
