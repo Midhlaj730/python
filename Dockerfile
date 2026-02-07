@@ -6,6 +6,11 @@ ENV PYTHONUNBUFFERED 1
 
 # Set work directory
 WORKDIR /app
+RUN apt-get update && apt-get install -y \
+    default-libmysqlclient-dev \
+    build-essential \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies
 COPY requirements.txt /app/
