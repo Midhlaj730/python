@@ -56,7 +56,7 @@ pipeline {
 
                     sh '''
                     docker-compose down || true
-                    docker-compose up -d
+                    docker-compose up -d --scale web=3
                     '''
 
                     echo 'Application deployed successfully!'
